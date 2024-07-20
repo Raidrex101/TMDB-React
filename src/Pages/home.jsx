@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Popover } from "bootstrap/dist/js/bootstrap.bundle.min";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
     const [movies, setMovies] = useState([])
@@ -19,26 +21,42 @@ const Home = () => {
                 console.log(data.results);
             })
             .catch(err => console.error(err));
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        Array.from(document.querySelectorAll('[data-bs-toggle="popover"]')).forEach(popoverNode => new Popover(popoverNode))
+    }, [movies]);
 
     return (
-        <div>
-            <h1>Popular Movies</h1>
-            <div >
-                {movies.map(movie => (
-                    <div key={movie.id}>{movie.title}
-                    <div>
-                    <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title}/>
-                    </div>
-                    </div>
+        <>
+            <Navbar />
 
-
-                ))}
+            <div className="container">
+                <div className="row">
+                    {movies.map(movie => (
+                        <div className="col-md-3" key={movie.id}>
+                            <div className="card" style={{ width: '18rem' }}>
+                                <img className="card-img-top"
+                                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : 'defaultImageURL'}
+                                    alt={movie.title} />
+                                <div className="card-body d-flex justify-content-center row">
+                                    <h5 className="card-title">{movie.title}</h5>
+                                    <button type="button"
+                                        className="btn btn-secondary"
+                                        data-bs-container="body"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="top"
+                                        data-bs-content={movie.overview ? movie.overview : 'Sinopsis no disponible'}>
+                                        Sinopsis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
 export default Home
-
-
