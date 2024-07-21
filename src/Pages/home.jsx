@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Popover } from "bootstrap/dist/js/bootstrap.bundle.min";
 import Navbar from "../components/Navbar";
+import Paginator from "../components/Paginator";
 
 
 const Home = () => {
     const [movies, setMovies] = useState([])
+    const [genre, setGenre] = useState("")
+    const [page, setPage] = useState(1)
 
     const options = { // validador de credenciales para acceder a l a API, se necesita privatizar el token de acceso es el token que esta en autorization despues de Bearer
         method: 'GET',
@@ -25,18 +28,22 @@ const Home = () => {
     }
 
     useEffect(() => {
+        const url = genre
+        ? `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-Es&page=${page}&sort_by=popularity.desc&with_genres=${genre}` //hay genero? usa esto
+        : `https://api.themoviedb.org/3/movie/popular?language=es-ES&page=${page}`//no hay genero? usa esto
 
-        movieList('https://api.themoviedb.org/3/movie/popular?language=es-ES&page=1') //use efect para renderizar la lista de peliculas al cargar por primera vez la aplicacion
+        movieList(url) //use efect para renderizar la lista de peliculas al cargar la aplicacion
 
-    }, [])
+    }, [page, genre])//depende de pages y genre para inicializarse pages por defecto es 1 cuando se actualiza el valor en pages llama de nuevo al use efect realizando una nueva peticion
 
     const haldleGeneroChange = (generoId) => { // funcion que renderiza la lista de peliculas dependiendo del genero seleccionado esta funcion recibe su parametro desde Generos.jsx
-        if (generoId) { //con la funcion con el mismo nombre en Generos.jsx
-            movieList(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-Es&page=1&sort_by=popularity.desc&with_genres=${generoId}`)
-            
-        }else {
-            movieList('https://api.themoviedb.org/3/movie/popular?language=es-ES&page=1')
-        } 
+                                               //con la funcion con el mismo nombre en Generos.jsx
+            setGenre(generoId)
+            setPage(1) // se resetea la pagina para que vuelva a cargar la lista de peliculas del genero seleccionado
+    }
+
+    const handlePageChange = (newPage) => { // camnoa el valor ge page llamando de vuevo al use efect
+        setPage(newPage)
     }
 
 
@@ -72,6 +79,7 @@ const Home = () => {
                     ))}
                 </div>
             </div>
+            <Paginator page ={page} onPageChange={handlePageChange}/>
         </>
     )
 }
