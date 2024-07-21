@@ -3,11 +3,13 @@ import Generos from "./Generos";
 const Navbar = ({ onGeneroChange }) => {
     return (
         <>
-            <nav className="d-flex navbar navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <h1 className="navbar-brand">TMDB for dev-f</h1>
-                <div className="form-inline">
+                <div className="container-fluid justify-content-center">
+                <div className="me-3">
                     <Generos onGeneroChange={onGeneroChange} />
-                    <input className="form-control mr-sm-2 text-wrap" type="search" placeholder="Busca una pelicula, serie o actor" />
+                </div>
+                    <input className="form-control" type="search" placeholder="Busca una pelicula, serie o actor" style={{ width: '300px' }} />
                 </div>
             </nav>
 

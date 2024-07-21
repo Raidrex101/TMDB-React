@@ -30,8 +30,8 @@ const Generos = ({onGeneroChange}) => {
       }
 
     return (
-        <select className="form-select text-bg-dark" value={selectedGenero} onChange={handleGeneroChange}>
-            <option value={""}>Buscar por genero</option>
+        <select className="form-select text-bg-dark w-200" value={selectedGenero} onChange={handleGeneroChange}>
+            <option value={""}>Buscar genero</option>
             {generos.map(genero => (
                 <option  key={genero.id} value={genero.id}>{genero.name}</option>
             ))}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Popover } from "bootstrap/dist/js/bootstrap.bundle.min";
 import Navbar from "../components/Navbar";
-import Generos from "../components/Generos";
+
 
 const Home = () => {
     const [movies, setMovies] = useState([])
@@ -36,8 +36,9 @@ const Home = () => {
             
         }else {
             movieList('https://api.themoviedb.org/3/movie/popular?language=es-ES&page=1')
-        }
+        } 
     }
+
 
     useEffect(() => {
         Array.from(document.querySelectorAll('[data-bs-toggle="popover"]')).forEach(popoverNode => new Popover(popoverNode))
@@ -50,12 +51,13 @@ const Home = () => {
                 <div className="row">
                     {movies.map(movie => (
                         <div className="col-md-3" key={movie.id}>
-                            <div className="card" style={{ width: '18rem' }}>
+                            <div className="card" style={{ width: '16rem' }}>
                                 <img className="card-img-top"
                                     src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : 'defaultImageURL'}
                                     alt={movie.title} />
                                 <div className="card-body d-flex justify-content-center row">
-                                    <h5 className="card-title">{movie.title}</h5>
+                                    <h5 className="card-title text-center">{movie.title}</h5>
+                                    <h6>calificacion:{movie.vote_average}</h6>
                                     <button type="button"
                                         className="btn btn-secondary"
                                         data-bs-container="body"
