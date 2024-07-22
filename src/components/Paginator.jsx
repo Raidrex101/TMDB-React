@@ -1,18 +1,15 @@
-import { useState } from "react"
 
 const Paginator = ({page, onPageChange }) => {
     
 
     const previousPage = () => {
         if (page > 1) {
-            const newPage = page - 1
-            onPageChange(newPage)
+            onPageChange(page - 1);
         }
     }
 
     const nextPage = () => {
-            const newPage = page + 1
-            onPageChange(newPage)
+            onPageChange(page + 1);
     }
 
 

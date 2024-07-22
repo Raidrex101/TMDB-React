@@ -1,7 +1,7 @@
 import Buscador from "./Buscador";
 import Generos from "./Generos";
 
-const Navbar = ({ onGeneroChange }) => {//recibe el genero seleccionado desde Generos el cual despues se pasa a home para renderizar la lista de peliculas
+const Navbar = ({ onGeneroChange,onSearchTermChange }) => {//recibe el genero seleccionado desde Generos el cual despues se pasa a home para renderizar la lista de peliculas
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -10,7 +10,7 @@ const Navbar = ({ onGeneroChange }) => {//recibe el genero seleccionado desde Ge
                 <div className="me-3">
                     <Generos onGeneroChange={onGeneroChange} /> {/* desde este componente se transmite la informacion de generos a navbar y de navbar a home la lista de generos */}
                 </div>
-                    <Buscador/>
+                    <Buscador onsearchTermChange={onSearchTermChange}/>
                 </div>
             </nav>
 
