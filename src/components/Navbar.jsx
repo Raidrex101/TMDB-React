@@ -1,3 +1,4 @@
+import Buscador from "./Buscador";
 import Generos from "./Generos";
 
 const Navbar = ({ onGeneroChange }) => {//recibe el genero seleccionado desde Generos el cual despues se pasa a home para renderizar la lista de peliculas
@@ -9,7 +10,7 @@ const Navbar = ({ onGeneroChange }) => {//recibe el genero seleccionado desde Ge
                 <div className="me-3">
                     <Generos onGeneroChange={onGeneroChange} /> {/* desde este componente se transmite la informacion de generos a navbar y de navbar a home la lista de generos */}
                 </div>
-                    <input className="form-control" type="search" placeholder="Busca una pelicula, serie o actor" style={{ width: '300px' }} />
+                    <Buscador/>
                 </div>
             </nav>
 
